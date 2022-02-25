@@ -53,6 +53,7 @@ public class VerifySearchFieldTest {
             Assert.assertTrue(searchResult.getText().contains(request),"The current link is not as expected");
 
         }
+
         @AfterTest
     public void Close()
         {
