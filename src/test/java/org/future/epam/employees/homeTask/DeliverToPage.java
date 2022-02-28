@@ -25,6 +25,9 @@ public class DeliverToPage {
     @FindBy (how = How.XPATH, using ="//*[@aria-labelledby ='GLUXZipUpdate-announce']")
     private WebElement applyButton;
 
+    @FindBy(id = "GLUXHiddenSuccessSelectedAddressPlaceholder")
+     WebElement popUpToVerifyPostCode;
+
     public DeliverToPage(WebDriver driver){
         PageFactory.initElements(driver,this);
         this.driver=driver;
@@ -43,6 +46,10 @@ public class DeliverToPage {
         searchPostCode.sendKeys(postCode);
         applyButton.click();
         return new DeliverToPage(driver);
+    }
+
+    public WebElement returnPostCode(){
+        return popUpToVerifyPostCode;
     }
 
 }
