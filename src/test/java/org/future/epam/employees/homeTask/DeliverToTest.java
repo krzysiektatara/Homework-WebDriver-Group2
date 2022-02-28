@@ -22,14 +22,9 @@ public Object[][] postCodes(){
         System.setProperty("webdriver.chrome.driver", "src/test/java/resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.amazon.com/");
-        DeliverToPage deliverToPage = new DeliverToPage(driver).openPopUp();
-        Assert.assertTrue(driver.findElement(By.id("a-popover-header-1")).getSize() != null);
-        DeliverToPage checkPostcode = deliverToPage.fillPostCode(postCode);
-//        deliverToPage.returnPostCode();
-//        WebElement verifyPostCode = deliverToPage.returnPostCode();
+        DeliverToPage deliverToPage = new DeliverToPage(driver).openPopUp().fillPostCode(postCode);
 
-//        System.out.println(verifyPostCode.getCssValue("div") + "todiv");
-        System.out.println(deliverToPage.returnPostCode().getText());
-//        Assert.assertTrue(verifyPostCode.isDisplayed());
+        Assert.assertTrue(deliverToPage.returnPostCode().getAttribute("innerHTML").equals(postCode));
+
     }
 }
