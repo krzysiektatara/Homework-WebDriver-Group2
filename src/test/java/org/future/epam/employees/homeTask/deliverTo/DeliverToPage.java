@@ -1,4 +1,4 @@
-package org.future.epam.employees.homeTask;
+package org.future.epam.employees.homeTask.deliverTo;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
