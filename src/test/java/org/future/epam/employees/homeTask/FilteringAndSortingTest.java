@@ -8,27 +8,40 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.ArrayList;
 
 
 public class FilteringAndSortingTest {
-    @Test
-    public void filteringByCategoryAndBrandTest() {
+
+    WebDriver driver;
+
+    @BeforeMethod
+    public void setUp() {
 
         WebDriverManager.chromedriver().browserVersion("97").setup();
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
 
         driver.manage().window().maximize();
 
         driver.get("https://www.amazon.com/");
 
-        WebElement chairsCategory = driver.findElement(By.xpath("//span[text()='Chairs']"));
+        WebElement chairsCategory = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Chairs']")));
 
         chairsCategory.click();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+
+        driver.close();
+        driver.quit();
+    }
+
+    @Test
+    public void filteringByCategoryAndBrandTest() {
 
         WebElement brandName = driver.findElement(By.xpath("//span[text()='Razer']"));
 
@@ -40,9 +53,6 @@ public class FilteringAndSortingTest {
         for (WebElement title : resultsTitles) {
             Assert.assertTrue(title.getText().contains("Razer"));
         }
-
-        driver.close();
-        driver.quit();
     }
 
     @DataProvider(name = "priceRange")
@@ -57,17 +67,6 @@ public class FilteringAndSortingTest {
 
     @Test(dataProvider = "priceRange")
     public void filteringByPrice(String minPrice, String maxPrice) {
-
-        WebDriverManager.chromedriver().browserVersion("97").setup();
-        WebDriver driver = new ChromeDriver();
-
-        driver.manage().window().maximize();
-
-        driver.get("https://www.amazon.com/");
-
-        WebElement chairsCategory = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Chairs']")));
-
-        chairsCategory.click();
 
         WebElement minPriceField = driver.findElement(By.id("low-price"));
         WebElement maxPriceField = driver.findElement(By.id("high-price"));
@@ -115,24 +114,10 @@ public class FilteringAndSortingTest {
         for (Double price : resultPricesDouble) {
             Assert.assertTrue(price >= minFieldValue && price <= maxFieldValue);
         }
-
-        driver.close();
-        driver.quit();
     }
 
     @Test
     public void sortingByPrice() {
-
-        WebDriverManager.chromedriver().browserVersion("97").setup();
-        WebDriver driver = new ChromeDriver();
-
-        driver.manage().window().maximize();
-
-        driver.get("https://www.amazon.com/");
-
-        WebElement chairsCategory = driver.findElement(By.xpath("//span[text()='Chairs']"));
-
-        chairsCategory.click();
 
         WebElement sortOptionLabel = driver.findElement(By.className("a-dropdown-prompt"));
 
@@ -170,8 +155,5 @@ public class FilteringAndSortingTest {
         for (int i = 0; i < resultPricesDouble.size(); i++) {
             Assert.assertTrue(resultPricesDouble.get(i) <= resultPricesDouble.get(i + 1));
         }
-
-        driver.close();
-        driver.quit();
     }
 }
