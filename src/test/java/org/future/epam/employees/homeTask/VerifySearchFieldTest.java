@@ -20,8 +20,8 @@ public class VerifySearchFieldTest {
     public Object[][] incorrectRequests() {
         return new Object[][]
                 {
-                        {"lkjlkjsnlgksd'dfkg;klnl34058734-591=49v8-0 7", "//*[@id=\"search\"]/div[1]/div[1]/div/span[3]/div[2]/div[1]/div/div/div/span[1]"},
-                        {"><><>","//*[@id=\"search\"]/div[1]/div[1]/div/span[3]/div[2]/div[1]/div/div/div/div[1]/span[1]"}
+                        {"lkjlkjsnlgksd'dfkg;klnl34058734-591=49v8-0 7"},
+                        {"><><>"}
                 };
     }
 
@@ -39,8 +39,8 @@ public class VerifySearchFieldTest {
     public Object[][] words() {
         return new Object[][]
                 {
-                        {"Keyboard","//*[@id=\"search\"]/div[1]/div[1]/div/span[3]/div[2]/div[2]/div/div/div/div/div/div/div/div[2]/div/div/div[1]/h2/a/span"},
-                        {"Hello Kitty", "//*[@id=\"search\"]/div[1]/div[1]/div/span[3]/div[2]/div[2]/div/div/div/div/div/div/div[2]/div[2]/h2/a/span"},
+                        {"Keyboard","//span[text()[contains(.,\"Keyboard\")]]"},
+                        {"Hello Kitty", "//span[text()[contains(.,\"Hello Kitty\")]]"}
                 };
     }
 
@@ -73,27 +73,29 @@ public class VerifySearchFieldTest {
 
 
         @Test(dataProvider = "IncorrectRequests")
-        public void incorrectRequestTest(String incorrectR, String path){
+        public void incorrectRequestTest(String incorrectR){
             sendRequest(incorrectR);
-            WebElement searchResult = searchForResult(path);
-            Assert.assertTrue(searchResult.getText().contains("No results for"),"The expected message did not appear");
+            WebElement searchResult = searchForResult("//span[text() = \"No results for \"]");
+            Assert.assertTrue(searchResult.getText().contains("No results for"),
+                    "The expected message did not appear");
         }
 
 
         @Test(dataProvider = "CorrectRequests")
         public void correctRequestTest(String request){
             sendRequest(request);
-            WebElement searchResult = searchForResult("//*[@id=\"search\"]/span/div/h1/div/div[1]/div/div/span[3]");
-            Assert.assertTrue(searchResult.getText().contains(request),"The current link is not as expected");
+            WebElement searchResult = searchForResult("//span[@class=\"a-color-state a-text-bold\"]");
+            Assert.assertTrue(searchResult.getText().contains(request),
+                    "The current link is not as expected");
         }
-
 
         @Test(dataProvider = "ContainWords")
         public void containsWordTest(String request, String path)
         {
             sendRequest(request);
             WebElement searchResult = searchForResult(path);
-            Assert.assertTrue(searchResult.getText().contains(request),"The current page does not contain expected result");
+            Assert.assertTrue(searchResult.getText().contains(request),
+                    "The current page does not contain expected result");
         }
 
         @AfterTest
