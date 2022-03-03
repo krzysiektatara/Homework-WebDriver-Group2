@@ -1,4 +1,11 @@
+.allure
+.json
 
+#IDEA Files
+.idea
+target
+*.iml
+*.ipr
 ##############################
 ## NetBeans
 ##############################
