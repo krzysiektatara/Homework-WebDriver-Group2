@@ -109,13 +109,6 @@ public class DeliverToPage {
     public WebElement getShippingDescription(){
         return shippingDescription;
     }
-
-
-
-
-
-
-
 }
 
 

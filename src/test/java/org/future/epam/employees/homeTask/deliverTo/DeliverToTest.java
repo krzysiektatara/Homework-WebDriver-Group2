@@ -48,10 +48,5 @@ public class DeliverToTest {
         deliverToPage.getHeadsetCategory().click();
         deliverToPage.getItem().click();
         Assert.assertTrue(deliverToPage.getShippingDescription().getText().contains("Poland"));
-
-
-
-
-
     }
 }
