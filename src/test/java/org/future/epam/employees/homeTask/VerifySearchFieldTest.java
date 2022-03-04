@@ -13,7 +13,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.time.Duration;
 
-
 public class VerifySearchFieldTest {
 
     @DataProvider(name = "IncorrectRequests")
