@@ -12,6 +12,7 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class FilteringAndSortingTest {
@@ -47,8 +48,8 @@ public class FilteringAndSortingTest {
 
         brandName.click();
 
-        ArrayList<WebElement> resultsTitles =
-                (ArrayList<WebElement>) driver.findElements(By.xpath("//span[contains(@class,'a-size-base-plus a-color-base')]"));
+        List<WebElement> resultsTitles =
+                driver.findElements(By.xpath("//span[contains(@class,'a-size-base-plus a-color-base')]"));
 
         for (WebElement title : resultsTitles) {
             Assert.assertTrue(title.getText().contains("Razer"));
@@ -76,13 +77,13 @@ public class FilteringAndSortingTest {
         maxPriceField.sendKeys(maxPrice);
         searchButton.click();
 
-        ArrayList<WebElement> resultsPricesDollars =
-                (ArrayList<WebElement>) driver.findElements(By.xpath("//span[@class='a-price-whole']"));
+        List<WebElement> resultsPricesDollars =
+                driver.findElements(By.xpath("//span[@class='a-price-whole']"));
 
-        ArrayList<WebElement> resultsPricesCents =
-                (ArrayList<WebElement>) driver.findElements(By.xpath("(//span[@class='a-price-fraction'])"));
+        List<WebElement> resultsPricesCents =
+                driver.findElements(By.xpath("(//span[@class='a-price-fraction'])"));
 
-        ArrayList<Double> resultPricesDouble = new ArrayList<>();
+        List<Double> resultPricesDouble = new ArrayList<>();
 
         for (int i = 0; i < resultsPricesDollars.size(); i++) {
             if (!resultsPricesDollars.get(i).getText().isEmpty()) {
@@ -91,15 +92,6 @@ public class FilteringAndSortingTest {
                 );
             }
         }
-
-//        Uncomment following if you want to see price info
-//
-//        int dollarSize = resultPricesDouble.size();
-//        System.out.println("size" + dollarSize);
-//
-//        for (double result: resultPricesDouble) {
-//            System.out.println(result);
-//        }
 
         double minFieldValue = 0.00;
         double maxFieldValue = 9999999.99;
@@ -127,16 +119,15 @@ public class FilteringAndSortingTest {
 
         sortByPriceLowToHighOption.click();
 
-        //waiting for any element to be displayed necessary
         WebElement firstElementImage = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@data-image-index='1']")));
 
-        ArrayList<WebElement> resultsPricesDollars =
-                (ArrayList<WebElement>) driver.findElements(By.xpath("//span[@class='a-price-whole']"));
+        List<WebElement> resultsPricesDollars =
+                driver.findElements(By.xpath("//span[@class='a-price-whole']"));
 
-        ArrayList<WebElement> resultsPricesCents =
-                (ArrayList<WebElement>) driver.findElements(By.xpath("(//span[@class='a-price-fraction'])"));
+        List<WebElement> resultsPricesCents =
+                driver.findElements(By.xpath("(//span[@class='a-price-fraction'])"));
 
-        ArrayList<Double> resultPricesDouble = new ArrayList<>();
+        List<Double> resultPricesDouble = new ArrayList<>();
 
         for (int i = 0; i < resultsPricesDollars.size(); i++) {
             if (!resultsPricesDollars.get(i).getText().isEmpty()) {
@@ -145,12 +136,6 @@ public class FilteringAndSortingTest {
                 );
             }
         }
-
-//        Uncomment following if you want to see price info
-//
-//        for (double result: resultPricesDouble) {
-//            System.out.println(result);
-//        }
 
         for (int i = 0; i < resultPricesDouble.size(); i++) {
             Assert.assertTrue(resultPricesDouble.get(i) <= resultPricesDouble.get(i + 1));
