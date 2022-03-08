@@ -17,6 +17,16 @@ import java.util.List;
 
 public class FilteringAndSortingTest {
 
+    private static void centsAndDollarsConsolidation(List<WebElement> dollarsValue, List<WebElement> centsValue, List<Double> itemsPrices) {
+        for (int i = 0; i < dollarsValue.size(); i++) {
+            if (!dollarsValue.get(i).getText().isEmpty()) {
+                itemsPrices.add(Double.parseDouble(dollarsValue.get(i).getText()) +
+                        ((Double.parseDouble(centsValue.get(i).getText())) / 100)
+                );
+            }
+        }
+    }
+
     WebDriver driver;
 
     @BeforeMethod
@@ -44,7 +54,7 @@ public class FilteringAndSortingTest {
     @Test
     public void filteringByCategoryAndBrandTest() {
 
-        WebElement brandName = driver.findElement(By.xpath("//span[text()='Razer']"));
+        WebElement brandName = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='RESPAWN']")));
 
         brandName.click();
 
@@ -52,7 +62,7 @@ public class FilteringAndSortingTest {
                 driver.findElements(By.xpath("//span[contains(@class,'a-size-base-plus a-color-base')]"));
 
         for (WebElement title : resultsTitles) {
-            Assert.assertTrue(title.getText().contains("Razer"));
+            Assert.assertTrue(title.getText().contains("RESPAWN"));
         }
     }
 
@@ -85,13 +95,7 @@ public class FilteringAndSortingTest {
 
         List<Double> resultPricesDouble = new ArrayList<>();
 
-        for (int i = 0; i < resultsPricesDollars.size(); i++) {
-            if (!resultsPricesDollars.get(i).getText().isEmpty()) {
-                resultPricesDouble.add(Double.parseDouble(resultsPricesDollars.get(i).getText()) +
-                        ((Double.parseDouble(resultsPricesCents.get(i).getText())) / 100)
-                );
-            }
-        }
+        centsAndDollarsConsolidation(resultsPricesDollars, resultsPricesCents, resultPricesDouble);
 
         double minFieldValue = 0.00;
         double maxFieldValue = 9999999.99;
@@ -129,13 +133,7 @@ public class FilteringAndSortingTest {
 
         List<Double> resultPricesDouble = new ArrayList<>();
 
-        for (int i = 0; i < resultsPricesDollars.size(); i++) {
-            if (!resultsPricesDollars.get(i).getText().isEmpty()) {
-                resultPricesDouble.add(Double.parseDouble(resultsPricesDollars.get(i).getText()) +
-                        ((Double.parseDouble(resultsPricesCents.get(i).getText())) / 100)
-                );
-            }
-        }
+        centsAndDollarsConsolidation(resultsPricesDollars, resultsPricesCents, resultPricesDouble);
 
         for (int i = 0; i < resultPricesDouble.size(); i++) {
             Assert.assertTrue(resultPricesDouble.get(i) <= resultPricesDouble.get(i + 1));
