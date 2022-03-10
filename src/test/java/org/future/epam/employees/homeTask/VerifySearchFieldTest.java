@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class VerifySearchFieldTest {
 
@@ -48,8 +49,11 @@ public class VerifySearchFieldTest {
     @BeforeTest
     public WebDriver setUp()
     {
-        WebDriverManager.chromedriver().browserVersion("97").setup();
+        System.setProperty("webdriver.chrome.driver", "C:\\GIT\\Homework-WebDriver-Group2\\src\\test\\java\\resources\\chromedriver.exe");
+
         WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
         driver.get("https://www.amazon.com/");
         return driver;
     }
