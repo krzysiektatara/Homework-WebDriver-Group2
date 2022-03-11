@@ -2,10 +2,14 @@ package org.future.epam.employees.homeTask;
 
 import org.future.epam.employees.main.MainPage;
 import org.future.epam.employees.main.ResultPage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
 
 public class VerifySearchPOTest extends BaseTest {
 
@@ -36,6 +40,11 @@ public class VerifySearchPOTest extends BaseTest {
                         {"Keyboard", "//span[text()[contains(.,\"Keyboard\")]]"},
                         {"Hello Kitty", "//span[text()[contains(.,\"Hello Kitty\")]]"}
                 };
+    }
+
+    @BeforeTest
+    public void start(){
+        super.setUpDriver();
     }
 
 
