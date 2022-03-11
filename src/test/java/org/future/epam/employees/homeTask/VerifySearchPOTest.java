@@ -5,6 +5,7 @@ import org.future.epam.employees.main.ResultPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -72,5 +73,11 @@ public class VerifySearchPOTest extends BaseTest {
         Assert.assertTrue(resultPage.searchEnteredProduct(path).contains(request),
                 "The current page does not contain expected result");
     }
+
+    @AfterTest
+    public void quite(){
+        super.quit();
+    }
+
 
 }

@@ -22,6 +22,7 @@ public class BaseTest {
     }
 
     protected void quit() {
+        webDriver.close();
         webDriver.quit();
     }
 }
