@@ -1,9 +1,8 @@
-package org.future.epam.employees.main;
+package org.future.epam.employees.homeTask.pageObject.pages;
 
-import org.future.epam.employees.main.BasePage;
+import org.future.epam.employees.homeTask.pageObject.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class ResultPage extends BasePage {
     protected ResultPage(WebDriver webDriver) {

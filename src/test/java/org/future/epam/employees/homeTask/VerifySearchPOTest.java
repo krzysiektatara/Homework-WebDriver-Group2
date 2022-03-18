@@ -1,16 +1,12 @@
 package org.future.epam.employees.homeTask;
 
-import org.future.epam.employees.main.MainPage;
-import org.future.epam.employees.main.ResultPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.future.epam.employees.homeTask.pageObject.pages.MainPage;
+import org.future.epam.employees.homeTask.pageObject.pages.ResultPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
 
 public class VerifySearchPOTest extends BaseTest {
 
