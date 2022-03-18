@@ -6,7 +6,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 
-public class BaseTest {
+public abstract class BaseTest {
     protected final WebDriver webDriver = new WebDriverFactory().getWebDriver();
 
     @BeforeTest
@@ -15,9 +15,9 @@ public class BaseTest {
     }
 
 
-    @AfterTest
-    public void tearDown() {
-        webDriver.quit();
-    }
+//    @AfterTest
+//    public void tearDown() {
+//        webDriver.quit();
+//    }
 }
 
