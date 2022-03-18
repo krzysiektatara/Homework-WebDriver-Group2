@@ -7,4 +7,9 @@ public class MainPage extends BasePage {
     protected MainPage(WebDriver webDriver) {
         super(webDriver);
     }
+
+    public MainPage open() {
+        webDriver.get("https://www.amazon.com/");
+        return this;
+    }
 }

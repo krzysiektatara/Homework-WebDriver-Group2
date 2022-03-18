@@ -1,25 +1,23 @@
 package com.epam.home_task.amazon.test;
 
+import com.epam.home_task.amazon.page_object.factory.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import java.time.Duration;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 
 
 public class BaseTest {
+    protected final WebDriver webDriver = new WebDriverFactory().getWebDriver();
 
-    WebDriver webDriver = setUpDriver();
-
-    public WebDriver setUpDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\GIT\\Homework-WebDriver-Group2\\src\\test\\java\\resources\\chromedriver.exe");
-        this.webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    @BeforeTest
+    public void setUpDriver() {
         webDriver.manage().window().maximize();
-        webDriver.get("https://www.amazon.com/");
-        return webDriver;
     }
 
-    protected void quit() {
-        webDriver.close();
+
+    @AfterTest
+    public void tearDown() {
         webDriver.quit();
     }
 }
+
