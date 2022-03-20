@@ -17,7 +17,7 @@ public class AddRemoveItemTests {
 
     @BeforeMethod
     public void setUp() {
-        WebDriverManager.chromedriver().browserVersion("97").setup();
+        WebDriverManager.chromedriver().browserVersion("99").setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.amazon.com/");
@@ -53,6 +53,8 @@ public class AddRemoveItemTests {
         exit.click();
         WebElement cartCount = driver.findElement(By.id("nav-cart-count"));
         Assert.assertEquals(cartCount.getText(), "1");
+
+
         WebElement cart = driver.findElement(By.id("nav-cart"));
         cart.click();
         WebElement delete = driver.findElement(By.xpath("//input[@data-action=\"delete\"]"));
