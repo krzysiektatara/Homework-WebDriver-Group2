@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -31,6 +30,9 @@ public class LocationWindow extends BasePage {
     @FindBy(how = How.XPATH, using = "//a[text()='Poland']")
     private WebElement poland;
 
+    @FindBy(xpath = "//*[@class='a-button a-button-primary']")
+    private WebElement doneButton;
+
 
     public LocationWindow(WebDriver webDriver) {
         super(webDriver);
@@ -39,7 +41,7 @@ public class LocationWindow extends BasePage {
     ///postcode Test
 
     public LocationWindow fillPostCode(String postCode) {
-       wait.until(ExpectedConditions.presenceOfElementLocated((By.id("GLUXZipUpdateInput"))));
+        wait.until(ExpectedConditions.presenceOfElementLocated((By.id("GLUXZipUpdateInput"))));
         providePostCodeField.sendKeys(postCode);
         applyButton.click();
         return this;
@@ -57,8 +59,23 @@ public class LocationWindow extends BasePage {
         return this;
     }
 
-    public boolean isPolandPresent(){
+    public boolean isPolandPresent() {
+        wait.until(ExpectedConditions.elementToBeClickable(poland));
         return poland.isDisplayed();
+    }
+
+    /// countryInOrderTest
+
+    public LocationWindow choosePoland() {
+        wait.until(ExpectedConditions.elementToBeClickable(poland)).click();
+        return this;
+    }
+
+    public MainPage clickDoneButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(doneButton));
+        doneButton.click();
+        webDriver.navigate().refresh();
+        return new MainPage(webDriver);
     }
 
 
