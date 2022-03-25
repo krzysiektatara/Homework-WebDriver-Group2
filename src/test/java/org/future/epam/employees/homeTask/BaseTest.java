@@ -16,7 +16,7 @@ public class BaseTest {
     WebDriver webDriver = setUpDriver();
 
     @BeforeTest
-    public WebDriver setUpDriver() {
+    protected WebDriver setUpDriver() {
         WebDriverManager.chromedriver().browserVersion("99").setup();
         this.webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

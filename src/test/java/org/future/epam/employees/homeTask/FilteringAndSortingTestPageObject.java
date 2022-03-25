@@ -9,8 +9,8 @@ import org.future.epam.employees.homeTask.pageObject.pages.ChairsCategoryPage;
 
 public class FilteringAndSortingTestPageObject extends BaseTest {
 
-    MainPage mainPage = new MainPage(webDriver);
-    ChairsCategoryPage chairsCategoryPage = new ChairsCategoryPage(webDriver);
+    private MainPage mainPage = new MainPage(webDriver);
+    private ChairsCategoryPage chairsCategoryPage = new ChairsCategoryPage(webDriver);
 
     @Test
     public void filteringByCategoryAndBrandTest() {
@@ -19,7 +19,7 @@ public class FilteringAndSortingTestPageObject extends BaseTest {
         chairsCategoryPage.chooseBrandRespawn();
 
         for (WebElement title : chairsCategoryPage.getResultsTitles()) {
-            Assert.assertTrue(title.getText().contains("OFM"));
+            Assert.assertTrue(title.getText().contains("OFM"), "Brand name not found");
         }
     }
 
@@ -51,7 +51,8 @@ public class FilteringAndSortingTestPageObject extends BaseTest {
         }
 
         for (Double price : chairsCategoryPage.getResultPrices()) {
-            Assert.assertTrue(price >= minFieldValue && price <= maxFieldValue);
+            Assert.assertTrue(price >= minFieldValue && price <= maxFieldValue,
+                    "Product that did not meet the price requirements appeared in the search results");
         }
     }
 
@@ -62,9 +63,8 @@ public class FilteringAndSortingTestPageObject extends BaseTest {
         chairsCategoryPage.chooseSortingTypeLowToHigh();
 
         for (int i = 0; i < chairsCategoryPage.getResultPrices().size(); i++) {
-            Assert.assertTrue(chairsCategoryPage.getResultPrices().get(i) <= chairsCategoryPage.getResultPrices().get(i + 1));
-            System.out.println(1);
+            Assert.assertTrue(chairsCategoryPage.getResultPrices().get(i) <= chairsCategoryPage.getResultPrices().get(i + 1),
+                    "Products incorrectly sorted");
         }
-
     }
 }

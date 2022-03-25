@@ -23,13 +23,12 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//span[text()='Chairs']")
     private WebElement chairsCategory;
 
-    public MainPage open(){
+    public MainPage open() {
         webDriver.get("https://www.amazon.com/");
         return this;
     }
 
-    public ResultPage sendRequest(String request)
-    {
+    public ResultPage sendRequest(String request) {
         searchField.clear();
         searchField.sendKeys(request);
         searchButton.click();
